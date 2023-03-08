@@ -4,8 +4,8 @@ const btnCall = document.getElementById('btnCall');
 const textArea = document.getElementById('textArea');
 const textAreaResp = document.getElementById('textAreaResp');
 const btnTranscribe = document.getElementById('btnTranscribe');
-const div = document.getElementById("loading");
-const mic = document.getElementById("microOn");
+var div = document.getElementById("loading");
+var mic = document.getElementById("microOn");
 
 const recognition = new webkitSpeechRecognition();
 
