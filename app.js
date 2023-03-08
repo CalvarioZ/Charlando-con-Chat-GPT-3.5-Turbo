@@ -150,11 +150,3 @@ function agregarMensaje(role, content) {
         console.log('Mensaje ' + i + ': ' + ObjConversacion.messages[i].role +  ': ' + ObjConversacion.messages[i].content );
       }
 }
-
-function actualizarDiv() {
-    if (cargando) {
-        div.style.display = "block";
-    } else {
-        div.style.display = "none";
-    }
-}
