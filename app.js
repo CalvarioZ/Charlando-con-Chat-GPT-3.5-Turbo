@@ -158,8 +158,3 @@ function actualizarDiv() {
         div.style.display = "none";
     }
 }
-
-</script>
-</body>
-
-</html>
