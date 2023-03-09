@@ -1,6 +1,7 @@
 const btnStart = document.getElementById('btnStart');
 const btnStop = document.getElementById('btnStop');
 const btnCall = document.getElementById('btnCall');
+const btnSilence = document.getElementById('btnSilence');
 const textArea = document.getElementById('textArea');
 const textAreaResp = document.getElementById('textAreaResp');
 const btnTranscribe = document.getElementById('btnTranscribe');
@@ -35,10 +36,18 @@ actualizarDiv();
 actualizarMic();
 
 
+
+
 btnCall.addEventListener('click', () => {
     valor = textArea.value;
     response = llamarApi(valor);  
+    
 });
+
+btnSilence.addEventListener('click', () => {
+    paraLectura();
+});
+
 
 btnTranscribe.addEventListener('mousedown', () => {
   isTranscribing = true;
@@ -66,6 +75,11 @@ function leerTexto(text) {
     speech.lang = 'es-ES'
   
     window.speechSynthesis.speak(speech);
+    
+}
+
+function paraLectura(){
+    speechSynthesis.cancel();
 }
 
 function actualizarDiv() {
