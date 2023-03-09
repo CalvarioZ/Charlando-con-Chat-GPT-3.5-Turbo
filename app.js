@@ -30,8 +30,8 @@ recognition.continuous = true;
 recognition.lang = 'es-ES';
 recognition.interimResult = false;
 
-//actualizarDiv();
-//actualizarMic();
+actualizarDiv();
+actualizarMic();
 
 
 btnCall.addEventListener('click', () => {
