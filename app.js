@@ -112,9 +112,7 @@ function llamarApi (texto){
         body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+ APIKEY,
-            'Access-Control-Allow-Origin': 'https://calvarioz.github.io', 
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+            'Authorization': 'Bearer '+ APIKEY
         }
     };
 
