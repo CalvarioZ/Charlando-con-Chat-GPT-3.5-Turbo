@@ -49,13 +49,13 @@ btnSilence.addEventListener('click', () => {
 });
 
 
-btnTranscribe.addEventListener('mousedown', () => {
+btnTranscribe.addEventListener('touchstart', () => {
   isTranscribing = true;
   actualizarMic();
   recognition.start();
 });
 
-btnTranscribe.addEventListener('mouseup', () => {
+btnTranscribe.addEventListener('touchend', () => {
   isTranscribing = false;
   actualizarMic();
   recognition.stop();
