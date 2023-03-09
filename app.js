@@ -9,7 +9,7 @@ var mic = document.getElementById("microOn");
 
 const recognition = new webkitSpeechRecognition();
 
-const APIKEY = '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';
+const APIKEY = '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';
 var texto = "";
 var cargando = false;
 var primerMensaje = 0;
