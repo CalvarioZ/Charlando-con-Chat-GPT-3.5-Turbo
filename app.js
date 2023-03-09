@@ -61,7 +61,7 @@ recognition.onresult = (event) => {
 function leerTexto(text) {
     const speech = new SpeechSynthesisUtterance(text);
     speech.volume = 1;
-    speech.rate = 2;
+    speech.rate = 1.5;
     speech.pitch = 1;
     speech.lang = 'es-ES'
   
