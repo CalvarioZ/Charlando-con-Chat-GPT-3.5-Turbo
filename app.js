@@ -61,6 +61,18 @@ btnTranscribe.addEventListener('touchend', () => {
   recognition.stop();
 });
 
+btnTranscribe.addEventListener('mousedown', () => {
+    isTranscribing = true;
+    actualizarMic();
+    recognition.start();
+  });
+  
+  btnTranscribe.addEventListener('mouseup', () => {
+    isTranscribing = false;
+    actualizarMic();
+    recognition.stop();
+  });
+
 recognition.onresult = (event) => {
     texto = event.results[event.results.length - 1][0].transcript;
     textArea.value = texto;
