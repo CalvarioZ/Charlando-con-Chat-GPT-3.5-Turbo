@@ -9,7 +9,7 @@ var mic = document.getElementById("microOn");
 
 const recognition = new webkitSpeechRecognition();
 
-const APIKEY = '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';
+const APIKEY = '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';
 var texto = "";
 var cargando = false;
 var primerMensaje = 0;
@@ -112,7 +112,10 @@ function llamarApi (texto){
         body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+ APIKEY
+            'Authorization': 'Bearer '+ APIKEY,
+            'Access-Control-Allow-Origin': 'https://calvarioz.github.io', 
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
         }
     };
 
