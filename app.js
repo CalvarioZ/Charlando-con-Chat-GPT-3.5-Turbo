@@ -9,9 +9,6 @@ var div = document.getElementById("loading");
 var mic = document.getElementById("microOn");
 
 const recognition = new webkitSpeechRecognition();
-
-lbkFJWHovouKW3fdUaxnfoMcD
-
 const APIKEY1 = 'sk-D8QzP2JTjBVwy2zFe4u7T3B';
 const APIKEY2 = 'lbkFJWHovouKW3fdUaxnfoMcD'
 var texto = "";
