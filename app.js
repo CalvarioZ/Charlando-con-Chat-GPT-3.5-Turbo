@@ -10,8 +10,10 @@ var mic = document.getElementById("microOn");
 
 const recognition = new webkitSpeechRecognition();
 
-const APIKEY1 = 'sk-LByZhUa8QON6jGWsPNXXT3';
-const APIKEY2 = 'BlbkFJpG6ayWsdSa99PgekbiyQ'
+lbkFJWHovouKW3fdUaxnfoMcD
+
+const APIKEY1 = 'sk-D8QzP2JTjBVwy2zFe4u7T3B';
+const APIKEY2 = 'lbkFJWHovouKW3fdUaxnfoMcD'
 var texto = "";
 var cargando = false;
 var primerMensaje = 0;
