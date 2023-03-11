@@ -1,5 +1,6 @@
 import { saveTask } from './firestore.js';
 
+
 const btnStart = document.getElementById('btnStart');
 const btnStop = document.getElementById('btnStop');
 const btnCall = document.getElementById('btnCall');
@@ -50,30 +51,33 @@ btnCall.addEventListener('click', () => {
 btnSilence.addEventListener('click', () => {
     paraLectura();
 });
+if (window.innerWidth <= 768) {
 
-btnTranscribe.addEventListener('touchstart', () => {
-  isTranscribing = true;
-  actualizarMic();
-  recognition.start();
-});
+    btnTranscribe.addEventListener('touchstart', () => {
+        isTranscribing = true;
+        actualizarMic();
+        recognition.start();
+      });
+      
+      btnTranscribe.addEventListener('touchend', () => {
+        isTranscribing = false;
+        actualizarMic();
+        recognition.stop();
+      });
 
-btnTranscribe.addEventListener('touchend', () => {
-  isTranscribing = false;
-  actualizarMic();
-  recognition.stop();
-});
-
-btnTranscribe.addEventListener('mousedown', () => {
-    isTranscribing = true;
-    actualizarMic();
-    recognition.start();
-  });
-  
-  btnTranscribe.addEventListener('mouseup', () => {
-    isTranscribing = false;
-    actualizarMic();
-    recognition.stop();
-  });
+  } else {
+    btnTranscribe.addEventListener('mousedown', () => {
+        isTranscribing = true;
+        actualizarMic();
+        recognition.start();
+      });
+      
+      btnTranscribe.addEventListener('mouseup', () => {
+        isTranscribing = false;
+        actualizarMic();
+        recognition.stop();
+      });
+  }
 
 recognition.onresult = (event) => {
     texto = event.results[event.results.length - 1][0].transcript;
