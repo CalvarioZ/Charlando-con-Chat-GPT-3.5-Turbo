@@ -21,6 +21,7 @@ var cargando = false;
 var primerMensaje = 0;
 var isTranscribing = false;
 let transcriber = null;
+let valor = null;
 
 const ObjConversacion = {
     model: 'gpt-3.5-turbo',
@@ -184,19 +185,6 @@ function agregarMensaje(role, content) {
     for (let i = 0; i < ObjConversacion.messages.length; i++) {
         console.log('Mensaje ' + i + ': ' + ObjConversacion.messages[i].role +  ': ' + ObjConversacion.messages[i].content );
       }
-}
-
-console.log(getCookie("_ga=GA1.1.1719490979.1678460714; _ga_N0Q6PB7WLC=GS1.1.1678499267.1.1.1678499267.0.0.0"));
-
-function getCookie(name) {
-  const cookies = document.cookie.split("; ");
-  for (const cookie of cookies) {
-    const [cookieName, cookieValue] = cookie.split("=");
-    if (cookieName === name) {
-      return decodeURIComponent(cookieValue);
-    }
-  }
-  return null;
 }
 
 async function generateCatalanSpeech(text) {
