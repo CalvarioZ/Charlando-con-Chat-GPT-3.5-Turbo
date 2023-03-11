@@ -8,6 +8,7 @@ const btnSilence = document.getElementById('btnSilence');
 const btnRepeat = document.getElementById('btnRepeat');
 const btnCopiar= document.getElementById('btnCopiar');
 const textArea = document.getElementById('textArea');
+const textConversa = document.getElementById('conversa');
 const textAreaResp = document.getElementById('textAreaResp');
 const btnTranscribe = document.getElementById('btnTranscribe');
 var div = document.getElementById("loading");
@@ -206,6 +207,8 @@ function agregarMensaje(role, content) {
     let nuevoMensaje = {"role": role, "content": content};
     ObjConversacion.messages.push (nuevoMensaje) ;
 
+
+    textConversa.value = textConversa.value + nuevoMensaje.role + ': `' + nuevoMensaje.content + '` .\n' ;
     for (let i = 0; i < ObjConversacion.messages.length; i++) {
         console.log('Mensaje ' + i + ': ' + ObjConversacion.messages[i].role +  ': ' + ObjConversacion.messages[i].content );
       }
@@ -239,10 +242,6 @@ async function generateCatalanSpeech(text) {
   message.onend = function() {
     audio.play();
   };
-
-
-  
-
 
   // Sintetizar y reproducir voz
   window.speechSynthesis.speak(message);
