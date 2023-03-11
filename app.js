@@ -1,3 +1,5 @@
+import { saveTask } from './firestore.js';
+
 const btnStart = document.getElementById('btnStart');
 const btnStop = document.getElementById('btnStop');
 const btnCall = document.getElementById('btnCall');
@@ -7,11 +9,13 @@ const textAreaResp = document.getElementById('textAreaResp');
 const btnTranscribe = document.getElementById('btnTranscribe');
 var div = document.getElementById("loading");
 var mic = document.getElementById("microOn");
+let response = '';
+
 
 const recognition = new webkitSpeechRecognition();
 
-const APIKEY1 = 'sk-LByZhUa8QON6jGWsPNXXT3';
-const APIKEY2 = 'BlbkFJpG6ayWsdSa99PgekbiyQ'
+const APIKEY1 = 'sk-D8QzP2JTjBVwy2zFe4u7T3B';
+const APIKEY2 = 'lbkFJWHovouKW3fdUaxnfoMcD';
 var texto = "";
 var cargando = false;
 var primerMensaje = 0;
@@ -32,11 +36,9 @@ recognition.continuous = true;
 recognition.lang = 'es-ES';
 recognition.interimResult = false;
 
+
 actualizarDiv();
 actualizarMic();
-
-
-
 
 btnCall.addEventListener('click', () => {
     valor = textArea.value;
@@ -47,7 +49,6 @@ btnCall.addEventListener('click', () => {
 btnSilence.addEventListener('click', () => {
     paraLectura();
 });
-
 
 btnTranscribe.addEventListener('touchstart', () => {
   isTranscribing = true;
@@ -111,9 +112,11 @@ function actualizarMic() {
 }
 
 function llamarApi (texto){
+    saveTask(texto);
     cargando = true;
-    actualizarDiv()
+    actualizarDiv();
     console.log ( 'text' +texto)
+    let data ='';
     const ObjLlamada = {
         model: 'gpt-3.5-turbo',
         messages: [
@@ -162,6 +165,7 @@ function llamarApi (texto){
             console.log(mensaje);
             textAreaResp.value = mensaje;        
             leerTexto(mensaje);
+         //   generateCatalanSpeech(mensaje);
             agregarMensaje('assistant', mensaje);
             
         })
@@ -179,4 +183,37 @@ function agregarMensaje(role, content) {
     for (let i = 0; i < ObjConversacion.messages.length; i++) {
         console.log('Mensaje ' + i + ': ' + ObjConversacion.messages[i].role +  ': ' + ObjConversacion.messages[i].content );
       }
+}
+
+async function generateCatalanSpeech(text) {
+  // Importa el paquete de Google Cloud Text-to-Speech
+  const textToSpeech = require('@google-cloud/text-to-speech');
+
+  // Crea un cliente de Google Cloud Text-to-Speech
+  const client = new textToSpeech.TextToSpeechClient();
+
+  // Crea un objeto de solicitud de síntesis de voz en catalán
+  const request = {
+    input: { text },
+    voice: { languageCode: 'es-ES', name: 'es-ES-Wavenet-C' },
+    audioConfig: { audioEncoding: 'MP3' },
+  };
+
+  // Síntesis de voz en catalán
+  const [response] = await client.synthesizeSpeech(request);
+
+  // Convertir el audio a un objeto Blob y reproducirlo en el navegador
+  let audio = new Audio(URL.createObjectURL(new Blob([response.audioContent], { type: 'audio/mp3' })));
+  audio.play();
+
+  // Crear instancia de SpeechSynthesisUtterance
+  let message = new SpeechSynthesisUtterance(text);
+
+  // Reproducir el audio de Google al completarse la síntesis de voz
+  message.onend = function() {
+    audio.play();
+  };
+
+  // Sintetizar y reproducir voz
+  window.speechSynthesis.speak(message);
 }
