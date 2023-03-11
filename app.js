@@ -5,13 +5,15 @@ const btnStart = document.getElementById('btnStart');
 const btnStop = document.getElementById('btnStop');
 const btnCall = document.getElementById('btnCall');
 const btnSilence = document.getElementById('btnSilence');
+const btnRepeat = document.getElementById('btnRepeat');
+const btnCopiar= document.getElementById('btnCopiar');
 const textArea = document.getElementById('textArea');
 const textAreaResp = document.getElementById('textAreaResp');
 const btnTranscribe = document.getElementById('btnTranscribe');
 var div = document.getElementById("loading");
 var mic = document.getElementById("microOn");
 let response = '';
-
+var mensaje = null;
 
 const recognition = new webkitSpeechRecognition();
 
@@ -51,6 +53,24 @@ btnCall.addEventListener('click', () => {
 btnSilence.addEventListener('click', () => {
     paraLectura();
 });
+
+btnRepeat.addEventListener('click', () => {
+    if (mensaje != null){
+        leerTexto(mensaje);
+    }
+});
+
+btnCopiar.addEventListener('click', () => {
+    if (mensaje != null){
+        navigator.clipboard.writeText(mensaje)
+    .then(() => {
+      console.log('Texto copiado al portapapeles');
+    })
+    .catch((error) => {
+      console.error('Error al copiar el texto: ', error);
+    });
+    }
+});
 if (window.innerWidth <= 768) {
 
     btnTranscribe.addEventListener('touchstart', () => {
@@ -88,7 +108,7 @@ recognition.onresult = (event) => {
 function leerTexto(text) {
     const speech = new SpeechSynthesisUtterance(text);
     speech.volume = 1;
-    speech.rate = 1.4;
+    speech.rate = 1.3;
     speech.pitch = 1;
     speech.lang = 'es-ES'
   
@@ -166,7 +186,7 @@ function llamarApi (texto){
         .then(data => {
             cargando=false;
             actualizarDiv()
-            var mensaje = data.choices[0].message.content;
+            mensaje = data.choices[0].message.content;
             console.log(mensaje);
             textAreaResp.value = mensaje;        
             leerTexto(mensaje);
