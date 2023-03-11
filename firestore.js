@@ -15,10 +15,11 @@ const firebaseConfig = {
 };
 const dispositivo = navigator.platform;
 var dispositivoID = navigator.userAgent;
+const time = new Date(); 
 // Initialize Firebase
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore();
   
-export const saveTask = (Conversacion) => {
-addDoc(collection(db, 'Conversacion'), {Conversacion, dispositivo, dispositivoID})}
+export const saveTask = (callUser, callResp, idCall) => {
+addDoc(collection(db, 'Registro'), {time, callUser, callResp, dispositivo, dispositivoID, idCall})}

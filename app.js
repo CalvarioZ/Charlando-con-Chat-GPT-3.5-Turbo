@@ -36,7 +36,7 @@ recognition.continuous = true;
 recognition.lang = 'es-ES';
 recognition.interimResult = false;
 
-
+const idUnico = generarIDUnico()
 actualizarDiv();
 actualizarMic();
 
@@ -112,7 +112,7 @@ function actualizarMic() {
 }
 
 function llamarApi (texto){
-    saveTask(texto);
+    
     cargando = true;
     actualizarDiv();
     console.log ( 'text' +texto)
@@ -167,6 +167,7 @@ function llamarApi (texto){
             leerTexto(mensaje);
          //   generateCatalanSpeech(mensaje);
             agregarMensaje('assistant', mensaje);
+            saveTask(texto, mensaje, idUnico);
             
         })
         .catch(error => {
@@ -214,6 +215,17 @@ async function generateCatalanSpeech(text) {
     audio.play();
   };
 
+
+  
+
+
   // Sintetizar y reproducir voz
   window.speechSynthesis.speak(message);
 }
+
+function generarIDUnico() {
+    const fechaActual = new Date();
+    const numeroAleatorio = Math.floor(Math.random() * 1000); // Genera un número aleatorio entre 0 y 999
+    const identificador = fechaActual.getTime().toString() + numeroAleatorio.toString();
+    return identificador;
+  }
