@@ -7,51 +7,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conversando con Chat GPT</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
- 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+        body {
+          background-color: #f7f7f7;
+          font-family: 'Roboto', sans-serif;
+          font-size: 16px;
+          line-height: 1.5;
+        }
+        h3 {
+          margin-top: 40px;
+          margin-bottom: 20px;
+          text-align: center;
+          font-size: 24px;
+          font-weight: bold;
+          color: #333333;
+        }
+        button {
+          border: none;
+          border-radius: 4px;
+          color: #ffffff;
+          background-color: #4caf50;
+          padding: 12px 24px;
+          font-size: 16px;
+          font-weight: bold;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+        button:hover {
+          background-color: #388e3c;
+        }
+        textarea {
+          border-radius: 4px;
+          border: 1px solid #cccccc;
+          padding: 12px;
+          font-size: 16px;
+          line-height: 1.5;
+          resize: none;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        #microOn {
+          color: red;
+          font-size: 48px;
+          margin-top: 20px;
+        }
+        #loading {
+        font-size: 24px;
+        color: #333333;
+        display: none;
+        margin-top: 20px;
+        }
+        #loading .fa-spinner {
+        font-size: 48px;
+        color: #4caf50;
+        animation: fa-spin 1s linear infinite;
+        }
+      </style>
 </head>
 
 <body>
+    <h3>Transcriptor para hablar con ChatGPT 3.5 Turbo</h3>
 
-    <h3 style="text-align: center;">Transcriptor para hablar con ChatGPT 3.5 Turbo</h3>
-</br>
-</br>
-
-<div style="text-align: center;">
     <div style="text-align: center;">
-        <button type="submit" style="font-size:24px; color: red;" id="btnTranscribe"> Mantener pulsado para hablar </br></br><i class="material-icons">mic</i></button>
+      <button type="submit" id="btnTranscribe">
+        Mantener pulsado para hablar </br></br>
+        <i class="material-icons">mic</i>
+      </button>
     </div>
-    
-</div>
 
-
-<div style="text-align: center;">
-<div style="text-align: center;" id="microOn">
-    (((<i class="material-icons">mic</i>)))
-</div>
-</div>
-
+    <div style="text-align: center;">
+      <div style="text-align: center;" id="microOn">
+        (((<i class="material-icons">mic</i>)))
+      </div>
+    </div>
 </br>
-</br>
-
-<div style="text-align: center;">
-<textarea id="textArea" cols="50" rows="10"></textarea>
-</div>
-<div style="text-align: center;">
-    <button style="font-size:18px" id="btnCall">Enviar texto</button>
-</div>
+    <div style="text-align: center;">
+      <textarea id="textArea" cols="50" rows="10"></textarea>
+    </div>
+    <div style="text-align: center;">
+      <button id="btnCall" style="font-size:12px">Enviar texto</button>
+    </div>
 </br>
 <div style="text-align: center;" id="loading">
-    <i style="font-size: 48px; color: blue; animation: spin 1s linear infinite;" class="material-icons">refresh</i>
-    Llamando a la API...
+    <i class="fas fa-spinner"></i>
+    Procesando...
 </div>
 </br>
-<div style="text-align: center;">
-    <textarea id="textAreaResp" cols="70" rows="30"></textarea>
-</div>
-<div style="text-align: center;">
-    <button style="font-size:18px" id="btnSilence">Callar voz</button>
-</div>
-
+    <div style="text-align: center;">
+        <button style="font-size:12px" id="btnSilence">Silenciar</button>
+    </div>
+</br>
+    <div style="text-align: center;">
+      <textarea id="textAreaResp" cols="70" rows="30"></textarea>
+    </div>
 
 <script src="firestore.js" type="module" ></script>
 

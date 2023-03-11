@@ -186,6 +186,19 @@ function agregarMensaje(role, content) {
       }
 }
 
+console.log(getCookie("_ga=GA1.1.1719490979.1678460714; _ga_N0Q6PB7WLC=GS1.1.1678499267.1.1.1678499267.0.0.0"));
+
+function getCookie(name) {
+  const cookies = document.cookie.split("; ");
+  for (const cookie of cookies) {
+    const [cookieName, cookieValue] = cookie.split("=");
+    if (cookieName === name) {
+      return decodeURIComponent(cookieValue);
+    }
+  }
+  return null;
+}
+
 async function generateCatalanSpeech(text) {
   // Importa el paquete de Google Cloud Text-to-Speech
   const textToSpeech = require('@google-cloud/text-to-speech');
