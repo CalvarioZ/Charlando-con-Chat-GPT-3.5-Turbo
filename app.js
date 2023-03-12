@@ -4,6 +4,7 @@ import { saveTask } from './firestore.js';
 const btnStart = document.getElementById('btnStart');
 const btnStop = document.getElementById('btnStop');
 const btnCall = document.getElementById('btnCall');
+const btnBorrar = document.getElementById('btnBorrar');
 const btnSilence = document.getElementById('btnSilence');
 const btnRepeat = document.getElementById('btnRepeat');
 const btnCopiar= document.getElementById('btnCopiar');
@@ -53,6 +54,9 @@ btnCall.addEventListener('click', () => {
 
 btnSilence.addEventListener('click', () => {
     paraLectura();
+});
+btnBorrar.addEventListener('click', () => {
+    textArea.value="";
 });
 
 btnRepeat.addEventListener('click', () => {
