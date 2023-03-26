@@ -19,13 +19,12 @@ var mensaje = null;
 
 const recognition = new webkitSpeechRecognition();
 
-const APIKEY1 = 'sk-D8QzP2JTjBVwy2zFe4u7T3B';
-const APIKEY2 = 'lbkFJWHovouKW3fdUaxnfoMcD';
+
 var texto = "";
 var cargando = false;
 var primerMensaje = 0;
 var isTranscribing = false;
-let transcriber = null;
+
 let valor = null;
 
 const ObjConversacion = {
@@ -168,7 +167,7 @@ function llamarApi(texto) {
       data = ObjConversacion;
     }
   
-    const url = 'https://back-sw8akuejn-calvarioz.vercel.app/';
+    const url = 'https://back-lef3butc8-calvarioz.vercel.app/';
     const options = {
       method: 'POST',
       body: JSON.stringify(data),
