@@ -19,12 +19,13 @@ var mensaje = null;
 
 const recognition = new webkitSpeechRecognition();
 
-
+const APIKEY1 = 'sk-D8QzP2JTjBVwy2zFe4u7T3B';
+const APIKEY2 = 'lbkFJWHovouKW3fdUaxnfoMcD';
 var texto = "";
 var cargando = false;
 var primerMensaje = 0;
 var isTranscribing = false;
-
+let transcriber = null;
 let valor = null;
 
 const ObjConversacion = {
@@ -140,14 +141,13 @@ function actualizarMic() {
     }
 }
 
-function llamarApi(texto) {
+function llamarApi (texto){
+    
     cargando = true;
     actualizarDiv();
-    console.log('text' + texto);
-    let data = '';
-  
-    const ObjLlamada = 
-      {
+    console.log ( 'text' +texto)
+    let data ='';
+    const ObjLlamada = {
         model: 'gpt-3.5-turbo',
         messages: [
             {
@@ -157,51 +157,55 @@ function llamarApi(texto) {
         ],
       };
     
-  
-    if (primerMensaje == 0) {
-      data = ObjLlamada;
-      agregarMensaje('user', texto);
-      primerMensaje = 1;
+    if (primerMensaje == 0){
+        data = ObjLlamada;
+        agregarMensaje('user', texto);
+        primerMensaje =1
     } else {
-      agregarMensaje('user', texto);
-      data = ObjConversacion;
+        agregarMensaje('user', texto)
+        data = ObjConversacion
     }
-  
-    const url = 'https://back-lef3butc8-calvarioz.vercel.app/';
+    
+    const url = 'https://api.openai.com/v1/chat/completions';
     const options = {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-  
-    fetch(url, options)
-      .then((response) => {
-        if (!response.ok) {
-          cargando = false;
-          actualizarDiv();
-          throw new Error('Error al hacer la petición a la API');
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+ APIKEY1 + APIKEY2,
+            'Access-Control-Allow-Origin': 'https://calvarioz.github.io', 
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
         }
-        return response.json();
-      })
-      .then((data) => {
-        cargando = false;
-        actualizarDiv();
-        mensaje = data.choices[0].message.content;
-        console.log(mensaje);
-        textAreaResp.value = mensaje;
-        leerTexto(mensaje);
-        // generateCatalanSpeech(mensaje);
-        agregarMensaje('assistant', mensaje);
-        saveTask(texto, mensaje, idUnico);
-      })
-      .catch((error) => {
-        cargando = false;
-        actualizarDiv();
-        console.error(error);
-      });
-  }
+    };
+
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                cargando = false;
+                actualizarDiv()
+                throw new Error('Error al hacer la petición a la API');
+            }
+            return response.json();
+        })
+        .then(data => {
+            cargando=false;
+            actualizarDiv()
+            mensaje = data.choices[0].message.content;
+            console.log(mensaje);
+            textAreaResp.value = mensaje;        
+            leerTexto(mensaje);
+         //   generateCatalanSpeech(mensaje);
+            agregarMensaje('assistant', mensaje);
+            saveTask(texto, mensaje, idUnico);
+            
+        })
+        .catch(error => {
+            cargando=false;
+            actualizarDiv()
+            console.error(error);
+        });
+}
 
 function agregarMensaje(role, content) { 
     let nuevoMensaje = {"role": role, "content": content};
