@@ -19,8 +19,8 @@ var mensaje = null;
 
 const recognition = new webkitSpeechRecognition();
 
-const APIKEY1 = 'sk-D8QzP2JTjBVwy2zFe4u7T3B';
-const APIKEY2 = 'lbkFJWHovouKW3fdUaxnfoMcD';
+const APIKEY1 = 'sk-pTkOASAzsealt92iT5ibT3B';
+const APIKEY2 = 'lbkFJEK6r1RTZA2i7ULNAsUVN';
 var texto = "";
 var cargando = false;
 var primerMensaje = 0;
