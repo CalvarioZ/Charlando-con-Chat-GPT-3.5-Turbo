@@ -148,7 +148,7 @@ function llamarApi (texto){
     console.log ( 'text' +texto)
     let data ='';
     const ObjLlamada = {
-        model: 'gpt-3.5-turbo',
+        model: 'gpt-4',
         messages: [
             {
                 role: 'user', 
