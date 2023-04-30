@@ -29,7 +29,7 @@ let transcriber = null;
 let valor = null;
 
 const ObjConversacion = {
-    model: 'gpt-4',
+    model: 'gpt-4-0314',
     messages: [
         {
             role: 'user', 
@@ -148,7 +148,7 @@ function llamarApi (texto){
     console.log ( 'text' +texto)
     let data ='';
     const ObjLlamada = {
-        model: 'gpt-4',
+        model: 'gpt-4-0314',
         messages: [
             {
                 role: 'user', 
