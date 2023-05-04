@@ -12,6 +12,7 @@ const textArea = document.getElementById('textArea');
 const textConversa = document.getElementById('conversa');
 const textAreaResp = document.getElementById('textAreaResp');
 const btnTranscribe = document.getElementById('btnTranscribe');
+
 var div = document.getElementById("loading");
 var mic = document.getElementById("microOn");
 let response = '';
@@ -27,9 +28,13 @@ var primerMensaje = 0;
 var isTranscribing = false;
 let transcriber = null;
 let valor = null;
+const modelGPT4_0314= 'gpt-4-0314';
+const modelGPT4= 'gpt-4';
+const modelGPT3_5_0301='gpt-3.5-turbo-0301';
+const modelGPT3_5='gpt-3.5-turbo';
 
 const ObjConversacion = {
-    model: 'gpt-4-0314',
+    model: modelGPT4_0314,
     messages: [
         {
             role: 'user', 
@@ -148,7 +153,7 @@ function llamarApi (texto){
     console.log ( 'text' +texto)
     let data ='';
     const ObjLlamada = {
-        model: 'gpt-4-0314',
+        model: modelGPT4_0314,
         messages: [
             {
                 role: 'user', 
@@ -192,13 +197,13 @@ function llamarApi (texto){
             cargando=false;
             actualizarDiv()
             mensaje = data.choices[0].message.content;
-            console.log(mensaje);
-            textAreaResp.value = mensaje;        
+            // let respuesta = processCodeFormatting(mensaje);
+            document.getElementById('textAreaRespDiv').innerHTML = mensaje;         
+        //    textAreaResp.value = processCodeFormatting(mensaje);        
             leerTexto(mensaje);
          //   generateCatalanSpeech(mensaje);
             agregarMensaje('assistant', mensaje);
-            saveTask(texto, mensaje, idUnico);
-            
+            saveTask(texto, mensaje, idUnico);          
         })
         .catch(error => {
             cargando=false;
@@ -207,6 +212,10 @@ function llamarApi (texto){
         });
 }
 
+// function processCodeFormatting(text) {
+//     const codeRegex = /```([\s\S]*?)```/g;
+//     return text.replace(codeRegex, '<preT><codeT>$1</codeT></preT>');
+// }
 function agregarMensaje(role, content) { 
     let nuevoMensaje = {"role": role, "content": content};
     ObjConversacion.messages.push (nuevoMensaje) ;

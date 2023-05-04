@@ -75,18 +75,20 @@
   }
 }
 
-        #loading {
+#loading {
         font-size: 24px;
         color: #333333;
         display: none;
         margin-top: 20px;
         }
-        #loading .fa-spinner {
+#loading .fa-spinner {
         font-size: 48px;
         color: #4caf50;
         animation: fa-spin 1s linear infinite;
     }
-      </style>
+
+
+</style>
 </head>
 
 <body>
@@ -106,7 +108,7 @@
   </div>
 </br>
     <div style="text-align: center;">
-      <textarea id="textArea" cols="50" rows="10"></textarea>
+      <textarea id="textArea" cols="50" rows="10" placeholder="Escribe aquí..."></textarea>
     </div>
     <div style="text-align: center;">
       <button id="btnCall" style="font-size:12px; width: 130px">Enviar texto</button>
@@ -115,6 +117,8 @@
 </br>
 <div style="text-align: center;" id="loading">
     <i class="fas fa-spinner"></i>
+</br>
+  <h8>El motor de GPT 4 es mas lento por eso si haces prompts complejos el tiempo de espera puede ser largo, entre 1 y 2 minutos.</h8>  
 </div>
 </br>
 <div>
@@ -127,7 +131,7 @@
     <div style="text-align: center;">
       <textarea id="textAreaResp" cols="70" rows="30"></textarea>
     </div>
-
+   
     <div style="text-align: center;">
       <details>
         <summary>Historial</summary>
