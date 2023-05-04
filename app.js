@@ -198,8 +198,8 @@ function llamarApi (texto){
             actualizarDiv()
             mensaje = data.choices[0].message.content;
             // let respuesta = processCodeFormatting(mensaje);
-            document.getElementById('textAreaRespDiv').innerHTML = mensaje;         
-        //    textAreaResp.value = processCodeFormatting(mensaje);        
+           // document.getElementById('textAreaRespDiv').innerHTML = mensaje;         
+            textAreaResp.value = mensaje;        
             leerTexto(mensaje);
          //   generateCatalanSpeech(mensaje);
             agregarMensaje('assistant', mensaje);
