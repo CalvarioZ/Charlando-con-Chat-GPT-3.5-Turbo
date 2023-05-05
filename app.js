@@ -69,9 +69,8 @@ btnSpeak.addEventListener('click', () => {
 btnSilence.addEventListener('click', () => {
     paraLectura();
 });
-btnBorrar.addEventListener('click', () => {
-    textArea.value="";
-});
+
+
 
 btnRepeat.addEventListener('click', () => {
     if (mensaje != null){
