@@ -4,11 +4,13 @@ import { saveTask } from './firestore.js';
 const btnStart = document.getElementById('btnStart');
 const btnStop = document.getElementById('btnStop');
 const btnCall = document.getElementById('btnCall');
+const btnSpeak = document.getElementById('btnSpeak');
 const btnBorrar = document.getElementById('btnBorrar');
 const btnSilence = document.getElementById('btnSilence');
 const btnRepeat = document.getElementById('btnRepeat');
 const btnCopiar= document.getElementById('btnCopiar');
 const textArea = document.getElementById('textArea');
+
 const textConversa = document.getElementById('conversa');
 const textAreaResp = document.getElementById('textAreaResp');
 const btnTranscribe = document.getElementById('btnTranscribe');
@@ -56,6 +58,13 @@ btnCall.addEventListener('click', () => {
     response = llamarApi(valor);  
     
 });
+btnSpeak.addEventListener('click', () => {
+  
+    if (mensaje != null){
+        leerTexto(mensaje);
+    }
+});
+
 
 btnSilence.addEventListener('click', () => {
     paraLectura();
@@ -301,8 +310,8 @@ function formatMessageAsCode(messageContent, isAssistant) {
       let timeDisplay = isCode ? '' : `<sub style="font-size: 10px;">${formattedTime}&nbsp;</sub>`;
       formattedMessage += `
       
-        <div style="background-color: ${bgColor}; border-radius: 10px; display: inline-block; padding: 8px 12px; margin-top: 8px;"></br>
-          <span style="white-space: pre-wrap;></br><span style="color: ${textColor};">${escapedContent}</span></span>
+        <div style="background-color: ${bgColor}; border-radius: 10px; display: inline-block; padding: 8px 12px; margin-top: 8px;">
+        ${timeDisplay}<span style="white-space: pre-wrap;"></br><span style="color: ${textColor};">${escapedContent}</span></span>
         </div>`;
       isCode = false;
     } else {
