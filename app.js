@@ -112,7 +112,7 @@ if (window.innerWidth <= 768) {
 recognition.onresult = (event) => {
     texto = event.results[event.results.length - 1][0].transcript;
     textArea.value = texto;
-    response = llamarApi(texto);
+   // response = llamarApi(texto);
 }
 
 function leerTexto(text) {
@@ -165,9 +165,11 @@ function llamarApi (texto){
     if (primerMensaje == 0){
         data = ObjLlamada;
         agregarMensaje('user', texto);
+        addUserMessage(texto);
         primerMensaje =1
     } else {
         agregarMensaje('user', texto)
+        addUserMessage(texto);
         data = ObjConversacion
     }
     
@@ -198,9 +200,11 @@ function llamarApi (texto){
             actualizarDiv()
             mensaje = data.choices[0].message.content;
             // let respuesta = processCodeFormatting(mensaje);
-           // document.getElementById('textAreaRespDiv').innerHTML = mensaje;         
-            textAreaResp.value = mensaje;        
-            leerTexto(mensaje);
+           // document.getElementById('textAreaRespDiv').innerHTML = mensaje;      
+           textArea.value = "";   
+                    
+            addAssistantMessage(mensaje);
+           // leerTexto(mensaje);
          //   generateCatalanSpeech(mensaje);
             agregarMensaje('assistant', mensaje);
             saveTask(texto, mensaje, idUnico);          
@@ -265,4 +269,66 @@ function generarIDUnico() {
     const numeroAleatorio = Math.floor(Math.random() * 1000); // Genera un número aleatorio entre 0 y 999
     const identificador = fechaActual.getTime().toString() + numeroAleatorio.toString();
     return identificador;
+  }
+  function addUserMessage(messageContent) {
+    let chatMessage = document.createElement("div");
+    chatMessage.className = "userMessage";
+    chatMessage.innerHTML = formatMessageAsCode(messageContent, false);
+  
+    document.getElementById("chatContainer").appendChild(chatMessage);
+  }
+  
+  function addAssistantMessage(messageContent) {
+    let chatMessage = document.createElement("div");
+    chatMessage.className = "assistantMessage";
+    chatMessage.innerHTML = formatMessageAsCode(messageContent, true);
+  
+    document.getElementById("chatContainer").appendChild(chatMessage);
+  }
+  
+function formatMessageAsCode(messageContent, isAssistant) {
+  let bgColor = isAssistant ? "#4caf50" : "#e6e6e6";
+  let textColor = isAssistant ? "white" : "black";
+  let formattedTime = getFormattedTime();
+  let messageParts = messageContent.split("```");
+  let formattedMessage = "";
+  let isCode = false;
+
+  messageParts.forEach((part, index) => {
+    if (index % 2 === 0) {
+      // Parte regular, no es código
+      let escapedContent = escapeHtml(part);
+      let timeDisplay = isCode ? '' : `<sub style="font-size: 10px;">${formattedTime}&nbsp;</sub>`;
+      formattedMessage += `
+      
+        <div style="background-color: ${bgColor}; border-radius: 10px; display: inline-block; padding: 8px 12px; margin-top: 8px;"></br>
+          <span style="white-space: pre-wrap;></br><span style="color: ${textColor};">${escapedContent}</span></span>
+        </div>`;
+      isCode = false;
+    } else {
+      // Parte de código
+      let rows = part.split('\n').length;
+      let timeDisplay = index === 1 && isAssistant ? `<sub style="font-size: 10px;">${formattedTime}&nbsp;</sub>` : '';
+      formattedMessage += `
+        <div style="display: block; margin-top: 8px;">
+          ${timeDisplay}<textarea readonly rows="${rows}" style="width: 100%; height: auto; resize: none; white-space: pre-wrap;">${part}</textarea>
+        </div>`;
+      isCode = true;
+    }
+  });
+
+  return formattedMessage;
+}
+  
+  function getFormattedTime() {
+    let now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+  }
+
+  function escapeHtml(unsafeContent) {
+    return unsafeContent
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
   }
