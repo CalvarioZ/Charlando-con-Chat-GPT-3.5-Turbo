@@ -32,11 +32,12 @@ let transcriber = null;
 let valor = null;
 const modelGPT4_0314= 'gpt-4-0314';
 const modelGPT4= 'gpt-4';
+const modelGPT4_32K= 'gpt-4-32k';
 const modelGPT3_5_0301='gpt-3.5-turbo-0301';
 const modelGPT3_5='gpt-3.5-turbo';
 
 const ObjConversacion = {
-    model: modelGPT4_0314,
+    model: modelGPT4_32K,
     messages: [
         {
             role: 'user', 
