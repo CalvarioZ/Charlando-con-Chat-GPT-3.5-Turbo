@@ -37,7 +37,7 @@ const modelGPT3_5_0301='gpt-3.5-turbo-0301';
 const modelGPT3_5='gpt-3.5-turbo';
 
 const ObjConversacion = {
-    model: modelGPT4_32K,
+    model: modelGPT4_0314,
     messages: [
         {
             role: 'user', 
